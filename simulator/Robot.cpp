@@ -61,14 +61,18 @@ void Robot::RenderRobot(SDL_Renderer *rndr) {
     }
 }
 
-void Robot::StepForward() {
+void Robot::StepSim() {
+    GoFoward(0.1f);
+
+    m_angle += 0.1;
+}
+
+void Robot::GoFoward(float step) {
     float coef_x = cos(m_angle * (3.141592 / 180.0));
     float coef_y = sin(m_angle * (3.141592 / 180.0));
 
-    //m_x += 0.1 * coef_x;
-    //m_y += 0.1 *coef_y;
-
-    m_angle += 0.1;
+    m_x += step * coef_x;
+    m_y += step * coef_y;
 }
 
 void Robot::Probe(Image &plate) {

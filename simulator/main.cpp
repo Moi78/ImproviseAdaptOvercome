@@ -26,7 +26,7 @@ int main() {
 
         gr.EndFrame();
 
-        rb.StepForward();
+        rb.StepSim();
     }
 
     return 0;

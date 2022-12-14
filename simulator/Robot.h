@@ -23,10 +23,11 @@ public:
 
     void RenderRobot(SDL_Renderer* rndr);
 
-    void StepForward();
+    void StepSim();
 
     void Probe(Image& plate);
     void SetAngle(float angle);
+    void GoFoward(float step);
 
 private:
     float m_x, m_y;
