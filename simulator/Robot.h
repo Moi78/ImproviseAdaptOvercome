@@ -25,15 +25,15 @@ public:
     Robot(int spawn_x, int spawn_y, double angle);
     ~Robot();
 
-    void RenderRobot(SDL_Renderer* rndr);
+    virtual void RenderRobot(SDL_Renderer* rndr);
 
-    void StepSim();
+    virtual void StepSim();
 
-    void Probe(Image& plate);
-    void SetAngle(float angle);
-    void GoForward(float step);
+    virtual void Probe(Image& plate);
+    virtual void SetAngle(float angle);
+    virtual void GoForward(float step);
 
-private:
+protected:
     float m_x, m_y;
     double m_angle;
 

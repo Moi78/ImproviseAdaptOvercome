@@ -1,4 +1,6 @@
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 #include "Graphics.h"
 #include "Robot.h"
@@ -17,14 +19,21 @@ int main() {
     Robot rb = Robot(860, 145, 90.0);
 
     while(!gr.WantToClose()) {
-        rb.Probe(img);
+        std::thread probing_thread([](Robot& rb, Image& img){
+            rb.Probe(img);
+        }, std::ref(rb), std::ref(img));
 
-        gr.Update();
+        std::thread rendering_thread([](Graphics& gr, Image& img, Robot& rb){
+            gr.Update();
 
-        img.Render(gr.GetRenderer());
-        rb.RenderRobot(gr.GetRenderer());
+            img.Render(gr.GetRenderer());
+            rb.RenderRobot(gr.GetRenderer());
 
-        gr.EndFrame();
+            gr.EndFrame();
+        }, std::ref(gr), std::ref(img), std::ref(rb));
+
+        probing_thread.join();
+        rendering_thread.join();
 
         rb.StepSim();
     }
