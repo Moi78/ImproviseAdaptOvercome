@@ -16,10 +16,6 @@ struct Polar {
     float ang;
 };
 
-enum States {
-    DEBUT
-};
-
 class Robot {
 public:
     Robot(int spawn_x, int spawn_y, double angle);
