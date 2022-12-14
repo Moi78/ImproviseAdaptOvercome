@@ -75,12 +75,12 @@ void Robot::StepSim() {
         }
     } else {
         if(m_lastKnownSensor == 1) {
-            m_angle += 0.1;
+            m_angle += 0.2;
             GoForward(0.1);
         }
 
         if(m_lastKnownSensor == 2) {
-            m_angle -= 0.1;
+            m_angle -= 0.2;
             GoForward(0.1);
         }
     }
