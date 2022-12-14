@@ -16,6 +16,10 @@ struct Polar {
     float ang;
 };
 
+enum States {
+    DEBUT
+};
+
 class Robot {
 public:
     Robot(int spawn_x, int spawn_y, double angle);
@@ -27,11 +31,13 @@ public:
 
     void Probe(Image& plate);
     void SetAngle(float angle);
-    void GoFoward(float step);
+    void GoForward(float step);
 
 private:
     float m_x, m_y;
     double m_angle;
+
+    int m_lastKnownSensor;
 
     std::array<bool, 4> m_sensor_states;
     std::array<Polar, 4> m_sensor_local_pos;

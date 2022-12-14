@@ -9,6 +9,7 @@ Robot::Robot(int spawn_x, int spawn_y, double angle) {
     m_y = spawn_y;
 
     m_angle = angle;
+    m_lastKnownSensor = 0;
 
     m_sensor_states = {false, false, false, false};
     m_sensor_local_pos[0] = {28.5, 90.0};
@@ -62,12 +63,30 @@ void Robot::RenderRobot(SDL_Renderer *rndr) {
 }
 
 void Robot::StepSim() {
-    GoFoward(0.1f);
+    if(m_sensor_states[1] || m_sensor_states[2]) {
+        GoForward(0.1);
 
-    m_angle += 0.1;
+        if(m_sensor_states[1]) {
+            m_lastKnownSensor = 1;
+        }
+
+        if(m_sensor_states[2]) {
+            m_lastKnownSensor = 2;
+        }
+    } else {
+        if(m_lastKnownSensor == 1) {
+            m_angle += 0.1;
+            GoForward(0.1);
+        }
+
+        if(m_lastKnownSensor == 2) {
+            m_angle -= 0.1;
+            GoForward(0.1);
+        }
+    }
 }
 
-void Robot::GoFoward(float step) {
+void Robot::GoForward(float step) {
     float coef_x = cos(m_angle * (3.141592 / 180.0));
     float coef_y = sin(m_angle * (3.141592 / 180.0));
 
