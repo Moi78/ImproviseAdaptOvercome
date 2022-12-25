@@ -4,6 +4,7 @@
 
 #include "Graphics.h"
 #include "Robot.h"
+#include "RobotMS.h"
 
 int main() {
     Graphics gr{};
@@ -16,7 +17,8 @@ int main() {
     }
 
     Image img = Image(gr.GetRenderer(), "assets/virage_bis.png", 0, 0, 1000, 1000);
-    Robot rb = Robot(860, 145, 90.0);
+    //Robot rb = Robot(860, 145, 90.0);
+    RobotMS rb = RobotMS(864, 145, 90.0);
 
     while(!gr.WantToClose()) {
         std::thread probing_thread([](Robot& rb, Image& img){
