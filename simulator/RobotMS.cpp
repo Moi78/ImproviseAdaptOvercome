@@ -66,5 +66,8 @@ void RobotMS::Probe(Image &plate) {
 }
 
 void RobotMS::StepSim() {
-    GoForward(0.05);
+    GoForward(0.1);
+
+    float diff = (m_sensors_state[1] - m_sensors_state[2]) / 255.0;
+    m_angle += 0.1f * diff;
 }
